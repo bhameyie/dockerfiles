@@ -9,8 +9,8 @@ RUN set -ex
 RUN	apt-get update
 RUN apt-get -y clean
 RUN apt-get -y install software-properties-common
-RUN apt-add-repository ppa:brightbox/ruby-ng apt-get update
-RUN	apt-get update
+RUN apt-add-repository ppa:brightbox/ruby-ng 
+RUN apt-get update
 RUN	apt-get install -y --no-install-recommends \
 		autoconf \
 		automake \
