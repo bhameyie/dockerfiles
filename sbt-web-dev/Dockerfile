@@ -1,4 +1,4 @@
-FROM hseeberger/scala-sbt:latest
+FROM hseeberger/scala-sbt:8u131-jdk_2.12.2_0.13.15
 
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 8.5.0
