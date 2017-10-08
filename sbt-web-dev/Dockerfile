@@ -1,5 +1,5 @@
 FROM hseeberger/scala-sbt:8u131-jdk_2.12.2_0.13.15
-#FROM 1science/sbt
+
 ENV FLYWAY_VERSION 4.2.0
 
 WORKDIR /flyway
