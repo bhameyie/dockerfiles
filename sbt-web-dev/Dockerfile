@@ -1,15 +1,17 @@
 FROM hseeberger/scala-sbt:8u131-jdk_2.12.2_0.13.15
-
-#RUN apk --no-cache add openssl
-#RUN	apt-get update
-
+#FROM 1science/sbt
 ENV FLYWAY_VERSION 4.2.0
+
+WORKDIR /flyway
 
 RUN curl -L https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}.tar.gz -o flyway-commandline-${FLYWAY_VERSION}.tar.gz \
   && tar -xzf flyway-commandline-${FLYWAY_VERSION}.tar.gz --strip-components=1 \
   && rm flyway-commandline-${FLYWAY_VERSION}.tar.gz \
   && ln -s /flyway/flyway /usr/local/bin/flyway
 
+WORKDIR ..
+
+RUN flyway 
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 8.5.0
 ENV YARN_VERSION 1.0.2
