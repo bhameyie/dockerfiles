@@ -2,8 +2,11 @@ FROM openjdk:8-alpine
 
 ENV SBT_VERSION 0.13.15
 
+RUN apk add --no-cache \
+		ca-certificates
+
 RUN apk add --no-cache bash
-RUN apk add --no-cache tar wget
+RUN apk add --no-cache --virtual=.dependencies tar wget
 RUN wget -O- "http://downloads.lightbend.com/scala/2.12.3/scala-2.12.3.tgz" \
     | tar xzf - -C /usr/local --strip-components=1
 
@@ -32,9 +35,7 @@ RUN apk --no-cache add \
 VOLUME ["/root/.config"]
 
 #### Docker ####
-RUN apk add --no-cache \
-		ca-certificates
-
+RUN apk del --no-cache .dependencies
 
 # set up nsswitch.conf for Go's "netgo" implementation (which Docker explicitly uses)
 # - https://github.com/docker/docker-ce/blob/v17.09.0-ce/components/engine/hack/make.sh#L149
