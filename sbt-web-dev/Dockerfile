@@ -1,4 +1,15 @@
-FROM bigtruedata/scala:alpine
+FROM openjdk:8-alpine
+
+ENV SBT_VERSION 0.13.15
+
+RUN apk add --no-cache bash
+RUN apk add --no-cache tar wget
+RUN wget -O- "http://downloads.lightbend.com/scala/2.12.3/scala-2.12.3.tgz" \
+    | tar xzf - -C /usr/local --strip-components=1
+
+RUN wget -O- "https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.tgz" \
+    |  tar xzf - -C /usr/local --strip-components=1 \
+    && sbt exit
 
 #### GCLOUD ####
 ENV CLOUD_SDK_VERSION 174.0.0
@@ -20,7 +31,6 @@ RUN apk --no-cache add \
     gcloud config set metrics/environment github_docker_image
 VOLUME ["/root/.config"]
 
-RUN gcloud 
 #### Docker ####
 RUN apk add --no-cache \
 		ca-certificates
